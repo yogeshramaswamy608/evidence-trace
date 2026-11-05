@@ -37,6 +37,9 @@ jobs:
           pip install -e . && pip install -e ..
           cp aiopslab/config.yml.example aiopslab/config.yml
           sed -i "s/^k8s_host:.*/k8s_host: kind/; s/^k8s_user:.*/k8s_user: $(whoami)/" aiopslab/config.yml
+          # The runner pulls about 20 images on first deploy; 300 s is too short there (pilot runs of Nov 5, 2026).
+          sed -i "s/def wait_for_ready(self, namespace, sleep=2, max_wait=300)/def wait_for_ready(self, namespace, sleep=2, max_wait=1500)/" aiopslab/service/kubectl.py
+          grep -n "max_wait=1500" aiopslab/service/kubectl.py
       - name: kind cluster
         run: |
           kind create cluster --config aiopslab/kind/kind-config-x86.yaml --wait 300s
