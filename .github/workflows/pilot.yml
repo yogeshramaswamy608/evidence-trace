@@ -43,6 +43,9 @@ jobs:
       - name: kind cluster
         run: |
           kind create cluster --config aiopslab/kind/kind-config-x86.yaml --wait 300s
+          # The private-repo runner has 2 CPUs; one schedulable worker ran out of CPU requests (pilot of Nov 5, 2026:
+          # mongodb-user and user stayed Pending, "Insufficient cpu"). Let pods use the control-plane node as well.
+          kubectl taint nodes --all node-role.kubernetes.io/control-plane- || true
           kubectl get nodes -o wide
       - name: Runs
         env:
