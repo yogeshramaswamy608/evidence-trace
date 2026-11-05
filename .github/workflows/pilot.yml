@@ -38,8 +38,8 @@ jobs:
           cp aiopslab/config.yml.example aiopslab/config.yml
           sed -i "s/^k8s_host:.*/k8s_host: kind/; s/^k8s_user:.*/k8s_user: $(whoami)/" aiopslab/config.yml
           # The runner pulls about 20 images on first deploy; 300 s is too short there (pilot runs of Nov 5, 2026).
-          sed -i "s/def wait_for_ready(self, namespace, sleep=2, max_wait=300)/def wait_for_ready(self, namespace, sleep=2, max_wait=1500)/" aiopslab/service/kubectl.py
-          grep -n "max_wait=1500" aiopslab/service/kubectl.py
+          sed -i "s/def wait_for_ready(self, namespace, sleep=2, max_wait=300)/def wait_for_ready(self, namespace, sleep=2, max_wait=900)/" aiopslab/service/kubectl.py
+          grep -n "max_wait=900" aiopslab/service/kubectl.py
       - name: kind cluster
         run: |
           kind create cluster --config aiopslab/kind/kind-config-x86.yaml --wait 300s
@@ -48,14 +48,26 @@ jobs:
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
+          mkdir -p runs
+          # Background watcher: every 60 s, the hotel-reservation pods, claims and recent events (diagnoses a stuck deploy).
+          ( while true; do date -u; kubectl get pods -n test-hotel-reservation -o wide 2>&1; kubectl get pvc -A 2>&1;
+              kubectl get events -n test-hotel-reservation --sort-by=.lastTimestamp 2>&1 | tail -15; echo; sleep 60; done ) > runs/deploy_watch.txt 2>&1 &
           cd aiopslab
           python ../scripts/run_aiopslab.py --agent "${{ inputs.agent }}" --model "${{ inputs.model }}" \
             --condition "${{ inputs.condition }}" --problems ${{ inputs.problems }} --seeds ${{ inputs.seeds }} \
             --budget-usd "${{ inputs.budget_usd }}" --price-in "${{ inputs.price_in }}" --price-out "${{ inputs.price_out }}" \
             --out ../runs
+      - name: Cluster state at the end
+        if: always()
+        run: |
+          { kubectl get nodes -o wide; kubectl get pods -A -o wide; kubectl get pvc -A; kubectl get sc;
+            kubectl describe pods -n test-hotel-reservation | grep -E "^Name:|State:|Reason:|Message:|Image:|Warning|Failed" | head -200;
+            df -h /; free -m; } > runs/cluster_end.txt 2>&1 || true
+          tail -60 runs/cluster_end.txt
       - name: Instrumentation check on every run
         if: always()
         run: |
+          shopt -s nullglob
           for s in runs/*/session.json; do echo "== $s"; evtrace selftest "$s" || true; done
       - uses: actions/upload-artifact@v4
         if: always()
