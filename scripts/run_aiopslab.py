@@ -91,7 +91,8 @@ def main() -> int:
             (run_dir / "usage.json").write_text(json.dumps({**usage, "cost_usd": round(cost, 4)}, indent=2))
             meta = {"problem_id": pid, "agent": args.agent, "model": args.model, "condition": args.condition,
                     "seed": seed, "seconds": round(time.time() - t0, 1), "error": error,
-                    "results": output.get("results", {}) if isinstance(output, dict) else {}}
+                    "results": output.get("results", {}) if isinstance(output, dict) else {},
+                    "notes": list(getattr(agent, "notes", []))}
             (run_dir / "meta.json").write_text(json.dumps(meta, indent=2, default=str))
             print(f"{tag}: {'ERROR ' + error if error else 'ok'}; cost {cost:.4f} USD; total {spent:.2f} USD")
     return 0

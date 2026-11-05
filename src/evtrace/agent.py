@@ -48,6 +48,7 @@ class ModelAgent:
         self.seed = seed  # recorded per run; the Messages API has no seed parameter
         self.system = ""
         self.messages: list[dict] = []
+        self.notes: list[str] = []
         self.usage = {"calls": 0, "input_tokens": 0, "output_tokens": 0,
                       "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}
 
@@ -104,7 +105,13 @@ class ModelAgent:
                 if e.code in (429, 500, 502, 503, 529) and attempt < 5:
                     time.sleep(2 ** attempt * 5)
                     continue
-                raise
+                detail = e.read().decode("utf-8", "replace")[:2000]
+                # Some models refuse a sampling parameter; drop it once and retry, keeping the reason on record.
+                if e.code == 400 and "temperature" in detail and "temperature" in body and attempt < 5:
+                    self.notes.append("temperature refused by the API; sent without it: " + detail[:300])
+                    body.pop("temperature")
+                    continue
+                raise RuntimeError(f"HTTP {e.code} from the API: {detail}") from e
         self.usage["calls"] += 1
         for k in self.usage:
             if k != "calls":
