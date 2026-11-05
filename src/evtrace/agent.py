@@ -42,7 +42,7 @@ Link only to telemetry that appears in the observations above."""
 class ModelAgent:
     """ReAct agent backed by one model; reads the key from LLM_API_KEY."""
 
-    def __init__(self, model: str, temperature: float = 0.0, max_tokens: int = 1024,
+    def __init__(self, model: str, temperature: float | None = None, max_tokens: int = 1024,
                  endpoint: str = "https://api.anthropic.com/v1/messages", seed: int = 0) -> None:
         self.model, self.temperature, self.max_tokens, self.endpoint = model, temperature, max_tokens, endpoint
         self.seed = seed  # recorded per run; the Messages API has no seed parameter
@@ -91,9 +91,11 @@ class ModelAgent:
         if len(msgs) >= 2:
             prev = msgs[-2]
             prev["content"] = [{"type": "text", "text": prev["content"], "cache_control": {"type": "ephemeral"}}]
-        body = {"model": self.model, "max_tokens": max_tokens or self.max_tokens, "temperature": self.temperature,
+        body = {"model": self.model, "max_tokens": max_tokens or self.max_tokens,
                 "system": [{"type": "text", "text": self.system, "cache_control": {"type": "ephemeral"}}],
                 "messages": msgs}
+        if self.temperature is not None:  # newer models refuse temperature (pilot of Nov 5, 2026), so send it only when set
+            body["temperature"] = self.temperature
         for attempt in range(6):
             req = urllib.request.Request(self.endpoint, data=json.dumps(body).encode(), method="POST", headers={
                 "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01"})

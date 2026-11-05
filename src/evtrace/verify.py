@@ -91,7 +91,7 @@ class ModelJudge:
         if not key:
             raise RuntimeError("LLM_API_KEY is not set")
         evidence = "\n".join(f"[{i + 1}] {render(it)}" for i, it in enumerate(items)) or "(none)"
-        body = {"model": self.model, "max_tokens": self.max_tokens, "temperature": 0,
+        body = {"model": self.model, "max_tokens": self.max_tokens,
                 "system": self.prompt,
                 "messages": [{"role": "user", "content": f"CLAIM: {claim['text']}\nEVIDENCE:\n{evidence}"}]}
         req = urllib.request.Request(self.endpoint, data=json.dumps(body).encode(), method="POST", headers={
