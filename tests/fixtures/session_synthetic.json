@@ -1,0 +1,47 @@
+{
+  "run_id": "synthetic-1",
+  "problem_id": "synthetic_localization",
+  "note": "synthetic test fixture, not a real run",
+  "trace": [
+    {
+      "role": "assistant",
+      "content": "Action: ```read_traces(\"traces.csv\")```"
+    },
+    {
+      "role": "env",
+      "content": "trace_id,span_id,parent_span,service_name,operation_name,start_time,duration,has_error,response\n0af7651916cd43dd8448eb211c80319c,b7ad6b7169203331,,frontend,GET /hotels,2026-11-05T08:00:01Z,120000,true,500\n0af7651916cd43dd8448eb211c80319c,7ad6b7169203331,b7ad6b7169203331,geo,Nearby,2026-11-05T08:00:01Z,118000,true,DEADLINE_EXCEEDED\n0af7651916cd43dd8448eb211c80319c,00f067aa0ba902b7,b7ad6b7169203331,rate,GetRates,2026-11-05T08:00:02Z,900,false,OK\n"
+    },
+    {
+      "role": "assistant",
+      "content": "Action: ```read_metrics(\"metrics.csv\")```"
+    },
+    {
+      "role": "env",
+      "content": "__name__,service,pod,timestamp,value\ncontainer_cpu_usage_seconds_total,geo,geo-7d9f,2026-11-05T08:00:00Z,0.93\ncontainer_cpu_usage_seconds_total,rate,rate-5c4b,2026-11-05T08:00:00Z,0.12\nhttp_requests_errors_total,frontend,frontend-66aa,2026-11-05T08:00:00Z,42\n"
+    },
+    {
+      "role": "assistant",
+      "content": "Action: ```get_logs(\"test-hotel-reservation\", \"geo\")```"
+    },
+    {
+      "role": "env",
+      "content": "2026-11-05T08:00:01Z ERROR geo: mongo connection refused\n2026-11-05T08:00:02Z INFO geo: retrying\n"
+    },
+    {
+      "role": "assistant",
+      "content": "Action: ```exec_shell(\"kubectl get pods -n test-hotel-reservation\")```"
+    },
+    {
+      "role": "env",
+      "content": "NAME READY STATUS\ngeo-7d9f 0/1 CrashLoopBackOff\nrate-5c4b 1/1 Running\n"
+    },
+    {
+      "role": "assistant",
+      "content": "Action: ```submit([\"geo\"])```"
+    },
+    {
+      "role": "env",
+      "content": "Submitted"
+    }
+  ]
+}

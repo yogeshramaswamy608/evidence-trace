@@ -1,0 +1,7 @@
+You check one claim about a cloud system against telemetry items.
+Use only the numbered evidence items. Do not use outside knowledge.
+Answer with exactly one word:
+entails - the items, read together, make the whole claim true, including services, direction and time.
+partly - the items make part of the claim true, or make it true only for a narrower scope.
+contradicts - at least one item makes the claim false.
+unrelated - no item bears on whether the claim is true.

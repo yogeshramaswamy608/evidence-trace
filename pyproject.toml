@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidence-trace"
+version = "0.0.1"
+description = "Bind every root-cause claim of an AI incident agent to the telemetry it saw"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [{name = "Yogesh Ramaswamy"}]
+dependencies = ["jsonschema>=4.18"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+evtrace = "evtrace.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+evtrace = ["data/*"]

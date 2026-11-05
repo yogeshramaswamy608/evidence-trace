@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yogeshramaswamy608/evidence-trace/provenance.schema.json",
+  "title": "Provenance record for root-cause analysis claims",
+  "type": "object",
+  "required": ["run_id", "problem_id", "evidence", "claims"],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "problem_id": {"type": "string", "minLength": 1},
+    "final_step": {"type": "integer", "minimum": 0},
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}}
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "required": ["evidence_id", "kind", "exposed_at_steps"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["span", "log_record", "metric_sample", "command_output"]},
+        "trace_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "span_id": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+        "service": {"type": "string"},
+        "operation": {"type": "string"},
+        "timestamp": {"type": "string", "format": "date-time"},
+        "error": {"type": "boolean"},
+        "status": {"type": "string"},
+        "duration_us": {"type": "number"},
+        "source": {"type": "string"},
+        "line_index": {"type": "integer", "minimum": 0},
+        "text_digest": {"type": "string"},
+        "text": {"type": "string"},
+        "series": {"type": "string"},
+        "labels": {"type": "object", "additionalProperties": {"type": "string"}},
+        "value": {"type": "number"},
+        "command": {"type": "string"},
+        "exposed_at_steps": {"type": "array", "items": {"type": "integer", "minimum": 0}}
+      },
+      "allOf": [
+        {"if": {"properties": {"kind": {"const": "span"}}},
+         "then": {"required": ["trace_id", "span_id", "service"]}},
+        {"if": {"properties": {"kind": {"const": "metric_sample"}}},
+         "then": {"required": ["series", "value"]}}
+      ]
+    },
+    "claim": {
+      "type": "object",
+      "required": ["claim_id", "text", "type", "links"],
+      "additionalProperties": false,
+      "properties": {
+        "claim_id": {"type": "string", "minLength": 1},
+        "text": {"type": "string", "minLength": 1},
+        "type": {"enum": ["observation", "inference", "root_cause", "recommendation"]},
+        "no_evidence_found": {"type": "boolean", "default": false},
+        "services": {"type": "array", "items": {"type": "string"}},
+        "window": {
+          "type": "object",
+          "required": ["start", "end"],
+          "properties": {
+            "start": {"type": "string", "format": "date-time"},
+            "end": {"type": "string", "format": "date-time"}
+          }
+        },
+        "value": {"type": "number"},
+        "links": {"type": "array", "items": {"$ref": "#/$defs/link"}}
+      }
+    },
+    "link": {
+      "type": "object",
+      "required": ["link_type", "target"],
+      "additionalProperties": false,
+      "properties": {
+        "link_type": {"enum": ["supports", "partly_supports", "contradicts", "context", "derived_from"]},
+        "target": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

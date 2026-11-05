@@ -1,0 +1,59 @@
+name: pilot
+# Runs agents on AIOpsLab problems in a kind cluster on the GitHub runner.
+# agent=probe needs no key and checks the instrumentation end to end.
+# agent=model reads the repository secret LLM_API_KEY and stops at budget_usd.
+on:
+  workflow_dispatch:
+    inputs:
+      agent: {description: "probe or model", default: "probe"}
+      model: {description: "model name for agent=model", default: ""}
+      condition: {description: "A (free text) or B (evidence links)", default: "A"}
+      problems: {description: "space-separated AIOpsLab problem ids", default: "pod_failure_hotel_res-localization-1"}
+      seeds: {description: "space-separated seeds", default: "0"}
+      budget_usd: {description: "stop once spend reaches this", default: "5"}
+      price_in: {description: "USD per million input tokens", default: "0"}
+      price_out: {description: "USD per million output tokens", default: "0"}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      AIOPSLAB_COMMIT: 576c3f080c7ae2459a972afd4a2f8d5f01828430
+    steps:
+      - uses: actions/checkout@v4
+      - name: Free disk space
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL && df -h /
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - uses: azure/setup-helm@v4
+      - name: Install kind
+        run: |
+          curl -sSLo kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+          chmod +x kind && sudo mv kind /usr/local/bin/kind
+      - name: AIOpsLab at the pinned commit
+        run: |
+          git clone --recurse-submodules https://github.com/microsoft/AIOpsLab.git aiopslab
+          cd aiopslab && git checkout "$AIOPSLAB_COMMIT" && git submodule update --init --recursive
+          pip install -e . && pip install -e ..
+          cp aiopslab/config.yml.example aiopslab/config.yml
+          sed -i "s/^k8s_host:.*/k8s_host: kind/; s/^k8s_user:.*/k8s_user: $(whoami)/" aiopslab/config.yml
+      - name: kind cluster
+        run: |
+          kind create cluster --config aiopslab/kind/kind-config-x86.yaml --wait 300s
+          kubectl get nodes -o wide
+      - name: Runs
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          cd aiopslab
+          python ../scripts/run_aiopslab.py --agent "${{ inputs.agent }}" --model "${{ inputs.model }}" \
+            --condition "${{ inputs.condition }}" --problems ${{ inputs.problems }} --seeds ${{ inputs.seeds }} \
+            --budget-usd "${{ inputs.budget_usd }}" --price-in "${{ inputs.price_in }}" --price-out "${{ inputs.price_out }}" \
+            --out ../runs
+      - name: Instrumentation check on every run
+        if: always()
+        run: |
+          for s in runs/*/session.json; do echo "== $s"; evtrace selftest "$s" || true; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: runs, path: runs, if-no-files-found: warn}
