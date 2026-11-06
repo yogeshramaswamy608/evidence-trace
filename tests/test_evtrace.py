@@ -273,3 +273,29 @@ def test_empty_reply_is_sent_as_marker(monkeypatch):
     texts = [m["content"] if isinstance(m["content"], str) else m["content"][0]["text"] for m in sent["body"]["messages"]]
     assert "" not in texts and ag.EMPTY_REPLY in texts
     assert a.messages[1]["content"] == ""
+
+
+def test_judge_must_differ_from_agents():
+    import pytest
+    from evtrace.verify import ModelJudge
+    with pytest.raises(ValueError):
+        ModelJudge("claude-sonnet-5-5")
+    assert ModelJudge("claude-opus-5-5").model == "claude-opus-5-5"
+
+
+def test_judge_logs_request_and_response(tmp_path, monkeypatch):
+    import io, json as _json
+    from evtrace import verify as vf
+
+    class Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    monkeypatch.setenv("LLM_API_KEY", "x")
+    monkeypatch.setattr(vf.urllib.request, "urlopen",
+                        lambda req, timeout=0: Resp(_json.dumps({"content": [{"type": "text", "text": "entails"}], "usage": {}}).encode()))
+    log = tmp_path / "judge.jsonl"
+    j = vf.ModelJudge("claude-opus-5-5", log_path=str(log))
+    assert j({"claim_id": "c1", "text": "geo errors"}, [{"kind": "log", "service": "geo", "text": "error"}]) == "entails"
+    rows = [_json.loads(l) for l in log.read_text().splitlines()]
+    assert len(rows) == 1 and rows[0]["claim_id"] == "c1" and rows[0]["request"]["model"] == "claude-opus-5-5" and rows[0]["utc"]

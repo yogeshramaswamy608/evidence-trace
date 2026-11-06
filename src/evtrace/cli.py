@@ -12,7 +12,7 @@ from .verify import ModelJudge, stage2_judge, verify
 
 
 def _judge(args):
-    return ModelJudge(args.model) if args.model else stage2_judge
+    return ModelJudge(args.model, log_path=getattr(args, "judge_log", None)) if args.model else stage2_judge
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -23,6 +23,7 @@ def main(argv: list[str] | None = None) -> int:
     v = sub.add_parser("verify", help="label every claim of a provenance record")
     v.add_argument("record")
     v.add_argument("--model", help="Stage 3 judge model; reads LLM_API_KEY. Without it, Stages 1 and 2 only")
+    v.add_argument("--judge-log", dest="judge_log", help="append every judge request and response to this JSON-lines file")
     e = sub.add_parser("exposure", help="evidence items of an AIOpsLab session file")
     e.add_argument("session")
     g = sub.add_parser("gold", help="claims with labels known by construction from a session file")

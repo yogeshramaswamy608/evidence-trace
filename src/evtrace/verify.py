@@ -5,7 +5,7 @@ import json
 import os
 import urllib.request
 from dataclasses import dataclass, field
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from importlib import resources
 from typing import Protocol
 
@@ -17,6 +17,9 @@ TIME_TOLERANCE = timedelta(seconds=60)
 VALUE_TOLERANCE = 0.05  # relative
 
 VERDICTS = ("entails", "partly", "contradicts", "unrelated")
+
+# The agent models of the study (manuscript Section 5.2); the Stage 3 judge may be none of them.
+AGENT_MODELS = ("claude-sonnet-5-5", "claude-haiku-5-5")
 
 
 @dataclass
@@ -77,12 +80,16 @@ def stage2_judge(claim: dict, items: list[dict]) -> str:
 class ModelJudge:
     """Stage 3 judge: one model call per claim with the frozen prompt and only the linked items.
 
-    The key is read from the environment variable LLM_API_KEY; nothing is stored. The model
-    must differ from every agent model in the study (manuscript Section 4)."""
+    The key is read from the environment variable LLM_API_KEY and never stored. The model
+    must differ from every agent model in the study (manuscript Section 4), and every request
+    and response is appended with its UTC time to log_path when one is given (Section 4, draft 0.3)."""
 
     def __init__(self, model: str, endpoint: str = "https://api.anthropic.com/v1/messages",
-                 max_tokens: int = 16) -> None:
-        self.model, self.endpoint, self.max_tokens = model, endpoint, max_tokens
+                 max_tokens: int = 16, agent_models: tuple[str, ...] = AGENT_MODELS,
+                 log_path: str | None = None) -> None:
+        if model in agent_models:
+            raise ValueError(f"judge model {model} is also an agent model; the judge must differ")
+        self.model, self.endpoint, self.max_tokens, self.log_path = model, endpoint, max_tokens, log_path
         self.prompt = resources.files("evtrace").joinpath("data/judge_prompt.txt").read_text()
         self.usage = {"calls": 0, "input_tokens": 0, "output_tokens": 0}
 
@@ -98,6 +105,10 @@ class ModelJudge:
             "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01"})
         with urllib.request.urlopen(req, timeout=120) as resp:
             out = json.load(resp)
+        if self.log_path:
+            with open(self.log_path, "a", encoding="utf-8") as f:
+                f.write(json.dumps({"utc": datetime.now(timezone.utc).isoformat(), "claim_id": claim.get("claim_id"),
+                                    "request": body, "response": out}) + "\n")
         self.usage["calls"] += 1
         for k in ("input_tokens", "output_tokens"):
             self.usage[k] += out.get("usage", {}).get(k, 0)
