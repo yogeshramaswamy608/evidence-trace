@@ -1,0 +1,44 @@
+Probe check, Fri Nov 6, 2026 (UTC): free probe agent (no model calls), seed 0, runs 42169104365, 42169106926, 42169110018 and 42169112981.
+Result: all 41 study problems deployed and ran to submission, so no problem is excluded. Each job then hit the 300-minute limit after its last problem and was cancelled; the artifacts were uploaded.
+Seconds per probe run, problem:
+256 assign_to_non_existent_node_social_net-analysis-1
+200 assign_to_non_existent_node_social_net-localization-1
+488 astronomy_shop_ad_service_failure-localization-1
+357 astronomy_shop_ad_service_high_cpu-localization-1
+329 astronomy_shop_ad_service_manual_gc-localization-1
+355 astronomy_shop_cart_service_failure-localization-1
+339 astronomy_shop_image_slow_load-localization-1
+350 astronomy_shop_kafka_queue_problems-localization-1
+414 astronomy_shop_loadgenerator_flood_homepage-localization-1
+346 astronomy_shop_payment_service_failure-localization-1
+335 astronomy_shop_payment_service_unreachable-localization-1
+459 astronomy_shop_product_catalog_service_failure-localization-1
+358 astronomy_shop_recommendation_service_cache_failure-localization-1
+245 auth_miss_mongodb-analysis-1
+220 auth_miss_mongodb-localization-1
+182 container_kill-localization
+151 k8s_target_port-misconfig-analysis-1
+156 k8s_target_port-misconfig-analysis-2
+162 k8s_target_port-misconfig-analysis-3
+146 k8s_target_port-misconfig-localization-1
+156 k8s_target_port-misconfig-localization-2
+193 k8s_target_port-misconfig-localization-3
+194 misconfig_app_hotel_res-analysis-1
+148 misconfig_app_hotel_res-localization-1
+158 network_delay_hotel_res-localization-1
+145 network_loss_hotel_res-localization-1
+139 pod_failure_hotel_res-localization-1
+140 pod_kill_hotel_res-localization-1
+219 redeploy_without_PV-analysis-1
+142 revoke_auth_mongodb-analysis-1
+159 revoke_auth_mongodb-analysis-2
+215 revoke_auth_mongodb-localization-1
+160 revoke_auth_mongodb-localization-2
+225 scale_pod_zero_social_net-analysis-1
+215 scale_pod_zero_social_net-localization-1
+153 user_unregistered_mongodb-analysis-1
+157 user_unregistered_mongodb-analysis-2
+155 user_unregistered_mongodb-localization-1
+156 user_unregistered_mongodb-localization-2
+151 wrong_bin_usage-analysis-1
+156 wrong_bin_usage-localization-1
