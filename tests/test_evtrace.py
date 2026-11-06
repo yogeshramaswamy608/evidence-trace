@@ -299,3 +299,17 @@ def test_judge_logs_request_and_response(tmp_path, monkeypatch):
     assert j({"claim_id": "c1", "text": "geo errors"}, [{"kind": "log", "service": "geo", "text": "error"}]) == "entails"
     rows = [_json.loads(l) for l in log.read_text().splitlines()]
     assert len(rows) == 1 and rows[0]["claim_id"] == "c1" and rows[0]["request"]["model"] == "claude-opus-5-5" and rows[0]["utc"]
+
+
+def test_sample_strata_cap_and_split():
+    from evtrace import sample
+    claims = [{"run_id": f"r{r}", "claim_id": f"c{i}", "model": m, "condition": cnd, "task_type": t}
+              for r, (m, cnd, t) in enumerate([(m, c, t) for m in "SH" for c in "AB" for t in ("loc", "ana")] * 10)
+              for i in range(12)]
+    dev, test = sample.draw(claims)
+    assert len(dev) == 100 and len(test) == 200
+    from collections import Counter
+    assert max(Counter(c["run_id"] for c in dev + test).values()) <= 5
+    assert sample.draw(claims) == (dev, test)
+    q = sample.queue(dev, [{"run_id": "g", "claim_id": "g1", "gold_label": "supported", "is_gold": True}])
+    assert len(q) == 101 and all("gold_label" not in c for c in q)
