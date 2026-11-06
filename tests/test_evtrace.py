@@ -313,3 +313,9 @@ def test_sample_strata_cap_and_split():
     assert sample.draw(claims) == (dev, test)
     q = sample.queue(dev, [{"run_id": "g", "claim_id": "g1", "gold_label": "supported", "is_gold": True}])
     assert len(q) == 101 and all("gold_label" not in c for c in q)
+
+
+def test_parse_time_epoch_units():
+    from evtrace.record import parse_time
+    a = parse_time("1793944967277000"); b = parse_time("1793944967277"); c = parse_time("1793944967")
+    assert a.year == 2026 and abs((a - b).total_seconds()) < 0.001 and abs((b - c).total_seconds()) < 1

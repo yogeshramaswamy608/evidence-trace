@@ -65,7 +65,12 @@ def parse_time(value: str | None) -> datetime | None:
     """Parse an ISO 8601 date and time; a value without a zone is read as UTC."""
     if not value:
         return None
-    dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    raw = str(value).strip()
+    if raw.isdigit():  # epoch time as Jaeger and Prometheus store it: seconds, ms, microseconds or ns
+        n = int(raw)
+        scale = 1e9 if len(raw) >= 19 else 1e6 if len(raw) >= 16 else 1e3 if len(raw) >= 13 else 1
+        return datetime.fromtimestamp(n / scale, tz=timezone.utc)
+    dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
     return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
