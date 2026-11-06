@@ -1,0 +1,23 @@
+name: segment
+# Proposes atomic claims for the Condition A summaries in data/condition_a_summaries.jsonl.
+on:
+  workflow_dispatch:
+    inputs:
+      model: {description: "segmentation model (differs from both agents)", default: "claude-opus-5-5"}
+permissions:
+  contents: read
+jobs:
+  segment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Segment
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: python scripts/segment_a.py data/condition_a_summaries.jsonl segments.jsonl segment_log.jsonl --model "${{ inputs.model }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: segments, path: "segment*.jsonl"}

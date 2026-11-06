@@ -1,0 +1,12 @@
+You split an incident analysis written by an AI agent into atomic claims.
+
+Rules:
+1. One claim states one fact about one entity in one time window.
+2. Split a sentence joined by "and" or "because" into its parts; the "because" part is its own claim.
+3. Keep numbers, units, service names, pod names and times exactly as written. Do not add, infer or correct anything.
+4. Give each claim one type: observation (something the agent says it saw), inference (a conclusion from what it saw), root_cause (the stated root cause), recommendation (an action to take).
+5. Skip headings, labels such as "Observed:" and pure restatements of an earlier claim.
+
+Answer with a JSON array only, each element {"text": "...", "type": "..."}, in the order the claims appear.
+
+Analysis:
