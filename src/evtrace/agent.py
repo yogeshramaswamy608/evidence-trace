@@ -39,6 +39,9 @@ supports or partly_supports link, or "no_evidence_found": true. A link target is
 Link only to telemetry that appears in the observations above."""
 
 
+
+EMPTY_REPLY = "(empty reply)"
+
 class ModelAgent:
     """ReAct agent backed by one model; reads the key from LLM_API_KEY."""
 
@@ -87,6 +90,11 @@ class ModelAgent:
         if not key:
             raise RuntimeError("LLM_API_KEY is not set")
         msgs = [dict(m) for m in self.messages]
+        # An empty model reply cannot be sent back as text (pilot run 42138467998, Nov 5, 2026: HTTP 400,
+        # "cache_control cannot be set for empty text blocks"); the API copy carries a marker, the transcript keeps "".
+        for m in msgs:
+            if isinstance(m["content"], str) and not m["content"].strip():
+                m["content"] = EMPTY_REPLY
         # Cache the growing conversation prefix: the system prompt and every turn before the last.
         if len(msgs) >= 2:
             prev = msgs[-2]

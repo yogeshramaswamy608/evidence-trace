@@ -245,3 +245,31 @@ def test_condition_b_summary_to_record():
 
 def test_parse_summary_rejects_free_text():
     assert locate.parse_summary("the geo service failed") is None
+
+
+def test_empty_reply_is_sent_as_marker(monkeypatch):
+    # Pilot run 42138467998 (Nov 5, 2026): an empty assistant reply with cache_control gave HTTP 400.
+    import io, json as _json
+    from evtrace import agent as ag
+    sent = {}
+
+    class Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def fake_urlopen(req, timeout=0):
+        sent["body"] = _json.loads(req.data)
+        return Resp(_json.dumps({"content": [{"type": "text", "text": "ok"}], "usage": {}}).encode())
+
+    monkeypatch.setenv("LLM_API_KEY", "x")
+    monkeypatch.setattr(ag.urllib.request, "urlopen", fake_urlopen)
+    a = ag.ModelAgent("claude-haiku-5-5") if hasattr(ag, "ModelAgent") else None
+    if a is None:
+        cls = [v for k, v in vars(ag).items() if isinstance(v, type) and hasattr(v, "_call")][0]
+        a = cls("claude-haiku-5-5")
+    a.system = "s"
+    a.messages = [{"role": "user", "content": "q"}, {"role": "assistant", "content": ""}, {"role": "user", "content": "next"}]
+    a._call()
+    texts = [m["content"] if isinstance(m["content"], str) else m["content"][0]["text"] for m in sent["body"]["messages"]]
+    assert "" not in texts and ag.EMPTY_REPLY in texts
+    assert a.messages[1]["content"] == ""
