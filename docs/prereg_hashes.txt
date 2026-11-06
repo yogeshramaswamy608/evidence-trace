@@ -1,0 +1,12 @@
+sha256 of the frozen files at tag prereg-v1, Fri Nov 6, 2026 (UTC). Problems that fail to deploy are excluded by the preset rule and listed in docs/probe_result.txt after the probe check.
+a817a4116dbb33348a1545e16312e219839f8b6858797466543fadbb05e21023  docs/labeling_rubric.md
+fac433c6eeff255d0d7ffebe98e7067f0e7be7acdacf9a509e59f72e5159e669  src/evtrace/data/judge_prompt.txt
+acf96181a83fb3eb3bf9762d14f4a14ff69b4b8578c8038d2f8a2b12710c3531  src/evtrace/sample.py
+349f6191d20ebd9f4902d6d2340f20e1db70fd113c4678cc3a7f0a9419dfed3a  src/evtrace/gold.py
+5c7daf7ab895cec51d43c9a19430d6ec3b466d1f5354ae929e517a1912947177  src/evtrace/stats.py
+ad5b1f3577470261cb2f2350d31f8d10dde8f768de19abf9d245b8bf3c2b7938  src/evtrace/verify.py
+49bbce7e1d4d74e1d3637dc62bce00bd5f30a7e33b477f26d284c0db8d5657d0  src/evtrace/agent.py
+2ff95019171515c1b9fc53fac00c071f461a56db81a39944b6d874824704f0b1  scripts/run_aiopslab.py
+9fea08197fcf11e37b19e3e87182396e9bcb40795bb55ee1bf7970a585ed1bfc  .github/workflows/pilot.yml
+fc96533356411f7d6092aa60d03124015bcbb376833e1c04db1274fb7258c639  docs/study_problems.txt
+f303b08d4f8cf06c9ac35ab27af50f4cdb45da602d13a34816b13be8b163a16e  docs/preregistration.md
