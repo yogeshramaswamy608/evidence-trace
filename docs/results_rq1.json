@@ -1,0 +1,566 @@
+{
+  "check_claims": {
+    "agree": 22,
+    "confusion": {
+      "partly_supported -> contradicted": 3,
+      "partly_supported -> partly_supported": 14,
+      "partly_supported -> supported": 1,
+      "supported -> contradicted": 3,
+      "supported -> partly_supported": 1,
+      "supported -> supported": 8
+    },
+    "n": 30,
+    "share": 0.7333333333333333
+  },
+  "exploratory_rq1_without_self_report_by_condition": {
+    "A": {
+      "checkable": 245,
+      "claims": 250,
+      "contradicted": {
+        "ci95": [
+          0.0245,
+          0.0785
+        ],
+        "rate": 0.049
+      },
+      "labels": {
+        "contradicted": 12,
+        "not_checkable": 5,
+        "partly_supported": 46,
+        "supported": 181,
+        "unsupported": 6
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1399,
+          0.239
+        ],
+        "rate": 0.1878
+      },
+      "runs": 156,
+      "unsupported": {
+        "ci95": [
+          0.008,
+          0.0449
+        ],
+        "rate": 0.0245
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0426,
+          0.112
+        ],
+        "rate": 0.0735
+      }
+    },
+    "B": {
+      "checkable": 31,
+      "claims": 31,
+      "contradicted": {
+        "ci95": [
+          0.0,
+          0.1667
+        ],
+        "rate": 0.0645
+      },
+      "labels": {
+        "contradicted": 2,
+        "partly_supported": 10,
+        "supported": 19
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1667,
+          0.4828
+        ],
+        "rate": 0.3226
+      },
+      "runs": 28,
+      "unsupported": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "rate": 0.0
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0,
+          0.1667
+        ],
+        "rate": 0.0645
+      }
+    }
+  },
+  "exploratory_self_report": {
+    "keys": [
+      "q015",
+      "q027",
+      "q037",
+      "q046",
+      "q051",
+      "q061",
+      "q063",
+      "q078",
+      "q097",
+      "q134",
+      "q148",
+      "q179",
+      "q198",
+      "q210",
+      "q211",
+      "q248",
+      "q288",
+      "q301",
+      "q326"
+    ],
+    "labels": {
+      "partly_supported": 3,
+      "unsupported": 16
+    },
+    "n": 19
+  },
+  "rq1_all": {
+    "all": {
+      "checkable": 295,
+      "claims": 300,
+      "contradicted": {
+        "ci95": [
+          0.0238,
+          0.0737
+        ],
+        "rate": 0.0475
+      },
+      "labels": {
+        "contradicted": 14,
+        "not_checkable": 5,
+        "partly_supported": 59,
+        "supported": 200,
+        "unsupported": 22
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1541,
+          0.2476
+        ],
+        "rate": 0.2
+      },
+      "runs": 191,
+      "unsupported": {
+        "ci95": [
+          0.0483,
+          0.1047
+        ],
+        "rate": 0.0746
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0864,
+          0.1593
+        ],
+        "rate": 0.122
+      }
+    }
+  },
+  "rq1_by_condition": {
+    "A": {
+      "checkable": 261,
+      "claims": 266,
+      "contradicted": {
+        "ci95": [
+          0.0224,
+          0.0728
+        ],
+        "rate": 0.046
+      },
+      "labels": {
+        "contradicted": 12,
+        "not_checkable": 5,
+        "partly_supported": 46,
+        "supported": 181,
+        "unsupported": 22
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1326,
+          0.2227
+        ],
+        "rate": 0.1762
+      },
+      "runs": 160,
+      "unsupported": {
+        "ci95": [
+          0.0541,
+          0.1176
+        ],
+        "rate": 0.0843
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0927,
+          0.172
+        ],
+        "rate": 0.1303
+      }
+    },
+    "B": {
+      "checkable": 34,
+      "claims": 34,
+      "contradicted": {
+        "ci95": [
+          0.0,
+          0.1515
+        ],
+        "rate": 0.0588
+      },
+      "labels": {
+        "contradicted": 2,
+        "partly_supported": 13,
+        "supported": 19
+      },
+      "partly_supported": {
+        "ci95": [
+          0.2353,
+          0.5455
+        ],
+        "rate": 0.3824
+      },
+      "runs": 31,
+      "unsupported": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "rate": 0.0
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0,
+          0.1515
+        ],
+        "rate": 0.0588
+      }
+    }
+  },
+  "rq1_by_model": {
+    "claude-haiku-5-5": {
+      "checkable": 127,
+      "claims": 130,
+      "contradicted": {
+        "ci95": [
+          0.015,
+          0.088
+        ],
+        "rate": 0.0472
+      },
+      "labels": {
+        "contradicted": 6,
+        "not_checkable": 3,
+        "partly_supported": 23,
+        "supported": 88,
+        "unsupported": 10
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1167,
+          0.25
+        ],
+        "rate": 0.1811
+      },
+      "runs": 84,
+      "unsupported": {
+        "ci95": [
+          0.0394,
+          0.127
+        ],
+        "rate": 0.0787
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0709,
+          0.1905
+        ],
+        "rate": 0.126
+      }
+    },
+    "claude-sonnet-5-5": {
+      "checkable": 168,
+      "claims": 170,
+      "contradicted": {
+        "ci95": [
+          0.0175,
+          0.0848
+        ],
+        "rate": 0.0476
+      },
+      "labels": {
+        "contradicted": 8,
+        "not_checkable": 2,
+        "partly_supported": 36,
+        "supported": 112,
+        "unsupported": 12
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1524,
+          0.2768
+        ],
+        "rate": 0.2143
+      },
+      "runs": 107,
+      "unsupported": {
+        "ci95": [
+          0.0357,
+          0.1069
+        ],
+        "rate": 0.0714
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0743,
+          0.1656
+        ],
+        "rate": 0.119
+      }
+    }
+  },
+  "rq1_by_model_condition": {
+    "claude-haiku-5-5 A": {
+      "checkable": 122,
+      "claims": 125,
+      "contradicted": {
+        "ci95": [
+          0.0163,
+          0.0917
+        ],
+        "rate": 0.0492
+      },
+      "labels": {
+        "contradicted": 6,
+        "not_checkable": 3,
+        "partly_supported": 19,
+        "supported": 87,
+        "unsupported": 10
+      },
+      "partly_supported": {
+        "ci95": [
+          0.0932,
+          0.2188
+        ],
+        "rate": 0.1557
+      },
+      "runs": 79,
+      "unsupported": {
+        "ci95": [
+          0.0397,
+          0.1318
+        ],
+        "rate": 0.082
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0741,
+          0.1967
+        ],
+        "rate": 0.1311
+      }
+    },
+    "claude-haiku-5-5 B": {
+      "checkable": 5,
+      "claims": 5,
+      "contradicted": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "rate": 0.0
+      },
+      "labels": {
+        "partly_supported": 4,
+        "supported": 1
+      },
+      "partly_supported": {
+        "ci95": [
+          0.4,
+          1.0
+        ],
+        "rate": 0.8
+      },
+      "runs": 5,
+      "unsupported": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "rate": 0.0
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "rate": 0.0
+      }
+    },
+    "claude-sonnet-5-5 A": {
+      "checkable": 139,
+      "claims": 141,
+      "contradicted": {
+        "ci95": [
+          0.0137,
+          0.0787
+        ],
+        "rate": 0.0432
+      },
+      "labels": {
+        "contradicted": 6,
+        "not_checkable": 2,
+        "partly_supported": 27,
+        "supported": 94,
+        "unsupported": 12
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1278,
+          0.2617
+        ],
+        "rate": 0.1942
+      },
+      "runs": 81,
+      "unsupported": {
+        "ci95": [
+          0.0441,
+          0.1308
+        ],
+        "rate": 0.0863
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0769,
+          0.1818
+        ],
+        "rate": 0.1295
+      }
+    },
+    "claude-sonnet-5-5 B": {
+      "checkable": 29,
+      "claims": 29,
+      "contradicted": {
+        "ci95": [
+          0.0,
+          0.1786
+        ],
+        "rate": 0.069
+      },
+      "labels": {
+        "contradicted": 2,
+        "partly_supported": 9,
+        "supported": 18
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1481,
+          0.4815
+        ],
+        "rate": 0.3103
+      },
+      "runs": 26,
+      "unsupported": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "rate": 0.0
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0,
+          0.1786
+        ],
+        "rate": 0.069
+      }
+    }
+  },
+  "rq1_by_task": {
+    "analysis": {
+      "checkable": 95,
+      "claims": 97,
+      "contradicted": {
+        "ci95": [
+          0.0204,
+          0.117
+        ],
+        "rate": 0.0632
+      },
+      "labels": {
+        "contradicted": 6,
+        "not_checkable": 2,
+        "partly_supported": 26,
+        "supported": 56,
+        "unsupported": 7
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1782,
+          0.3711
+        ],
+        "rate": 0.2737
+      },
+      "runs": 63,
+      "unsupported": {
+        "ci95": [
+          0.0225,
+          0.1287
+        ],
+        "rate": 0.0737
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0761,
+          0.2043
+        ],
+        "rate": 0.1368
+      }
+    },
+    "localization": {
+      "checkable": 200,
+      "claims": 203,
+      "contradicted": {
+        "ci95": [
+          0.0149,
+          0.0699
+        ],
+        "rate": 0.04
+      },
+      "labels": {
+        "contradicted": 8,
+        "not_checkable": 3,
+        "partly_supported": 33,
+        "supported": 144,
+        "unsupported": 15
+      },
+      "partly_supported": {
+        "ci95": [
+          0.1165,
+          0.2133
+        ],
+        "rate": 0.165
+      },
+      "runs": 128,
+      "unsupported": {
+        "ci95": [
+          0.0421,
+          0.1089
+        ],
+        "rate": 0.075
+      },
+      "unsupported_or_contradicted": {
+        "ci95": [
+          0.0728,
+          0.1606
+        ],
+        "rate": 0.115
+      }
+    }
+  }
+}

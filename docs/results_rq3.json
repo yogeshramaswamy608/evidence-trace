@@ -1,0 +1,209 @@
+{
+  "not_reached": [
+    "model-claude-haiku-5-5-A-astronomy_shop_kafka_queue_problems-localization-1-s1",
+    "model-claude-haiku-5-5-B-astronomy_shop_kafka_queue_problems-localization-1-s2",
+    "model-claude-haiku-5-5-B-astronomy_shop_loadgenerator_flood_homepage-localization-1-s0",
+    "model-claude-haiku-5-5-B-astronomy_shop_loadgenerator_flood_homepage-localization-1-s1"
+  ],
+  "rq3_glmm": {
+    "condition_B": {
+      "ci95": [
+        -1.0302,
+        0.3233
+      ],
+      "estimate": -0.3535,
+      "odds_ratio": 0.7022,
+      "p_wald": 0.3059523735966344,
+      "se": 0.3453
+    },
+    "converged": true,
+    "intercept": {
+      "ci95": [
+        -2.8447,
+        0.6741
+      ],
+      "estimate": -1.0853,
+      "se": 0.8977
+    },
+    "log_sd_problem": {
+      "ci95": [
+        1.1818,
+        1.8706
+      ],
+      "estimate": 1.5262,
+      "se": 0.1757
+    },
+    "model_sonnet": {
+      "ci95": [
+        1.4861,
+        3.1947
+      ],
+      "estimate": 2.3404,
+      "odds_ratio": 10.3853,
+      "p_wald": 7.898456493369491e-08,
+      "se": 0.4359
+    },
+    "neg_log_lik": 159.1368,
+    "problems": 41,
+    "runs": 488,
+    "sd_problem": 4.6006
+  },
+  "rq3_mcnemar_primary": {
+    "claude-haiku-5-5": {
+      "correct_A": 20,
+      "correct_B": 18,
+      "diff_B_minus_A": -0.0488,
+      "diff_ci95": [
+        -0.122,
+        0.0
+      ],
+      "only_A": 2,
+      "only_B": 0,
+      "p_exact": 0.5,
+      "p_holm": 1.0,
+      "problems": 41
+    },
+    "claude-sonnet-5-5": {
+      "correct_A": 26,
+      "correct_B": 28,
+      "diff_B_minus_A": 0.0488,
+      "diff_ci95": [
+        0.0,
+        0.122
+      ],
+      "only_A": 0,
+      "only_B": 2,
+      "p_exact": 0.5,
+      "p_holm": 1.0,
+      "problems": 41
+    }
+  },
+  "rq3_mcnemar_reached_runs_majority": {
+    "claude-haiku-5-5": {
+      "correct_A": 20,
+      "correct_B": 18,
+      "diff_B_minus_A": -0.0488,
+      "diff_ci95": [
+        -0.122,
+        0.0
+      ],
+      "only_A": 2,
+      "only_B": 0,
+      "p_exact": 0.5,
+      "p_holm": 1.0,
+      "problems": 41
+    },
+    "claude-sonnet-5-5": {
+      "correct_A": 26,
+      "correct_B": 28,
+      "diff_B_minus_A": 0.0488,
+      "diff_ci95": [
+        0.0,
+        0.122
+      ],
+      "only_A": 0,
+      "only_B": 2,
+      "p_exact": 0.5,
+      "p_holm": 1.0,
+      "problems": 41
+    }
+  },
+  "rq3_run_accuracy": {
+    "claude-haiku-5-5 A": {
+      "accuracy": 0.5122,
+      "ci95": [
+        0.3821,
+        0.6585
+      ],
+      "correct": 63,
+      "runs": 123
+    },
+    "claude-haiku-5-5 B": {
+      "accuracy": 0.4634,
+      "ci95": [
+        0.3252,
+        0.6179
+      ],
+      "correct": 57,
+      "runs": 123
+    },
+    "claude-sonnet-5-5 A": {
+      "accuracy": 0.6504,
+      "ci95": [
+        0.5203,
+        0.7805
+      ],
+      "correct": 80,
+      "runs": 123
+    },
+    "claude-sonnet-5-5 B": {
+      "accuracy": 0.6504,
+      "ci95": [
+        0.5041,
+        0.7886
+      ],
+      "correct": 80,
+      "runs": 123
+    }
+  },
+  "secondary": {
+    "claude-haiku-5-5 A": {
+      "cost_usd": 17.2555,
+      "median_seconds_to_submit": 18.2,
+      "median_steps": 8.0,
+      "median_tokens": 88064.0,
+      "runs": 122
+    },
+    "claude-haiku-5-5 B": {
+      "cost_usd": 17.9375,
+      "evidence_links": 103,
+      "format_failure_rate": 0.8667,
+      "format_failures": 104,
+      "links_not_exposed": 39,
+      "median_seconds_to_submit": 22.64,
+      "median_steps": 8.0,
+      "median_tokens": 131707.0,
+      "parsed_records": 16,
+      "records_with_rule_violation": 13,
+      "runs": 120,
+      "share_links_not_exposed": 0.3786,
+      "share_parsed_records_with_violation": 0.8125,
+      "violations_by_rule": {
+        "R1": 0,
+        "R2": 13,
+        "R3": 0,
+        "R4": 2,
+        "SCHEMA": 0
+      }
+    },
+    "claude-sonnet-5-5 A": {
+      "cost_usd": 74.2797,
+      "median_seconds_to_submit": 16.39,
+      "median_steps": 6.0,
+      "median_tokens": 63192.0,
+      "runs": 123
+    },
+    "claude-sonnet-5-5 B": {
+      "cost_usd": 73.5613,
+      "evidence_links": 721,
+      "format_failure_rate": 0.0894,
+      "format_failures": 11,
+      "links_not_exposed": 129,
+      "median_seconds_to_submit": 16.33,
+      "median_steps": 6.0,
+      "median_tokens": 59717.0,
+      "parsed_records": 112,
+      "records_with_rule_violation": 70,
+      "runs": 123,
+      "share_links_not_exposed": 0.1789,
+      "share_parsed_records_with_violation": 0.625,
+      "violations_by_rule": {
+        "R1": 12,
+        "R2": 63,
+        "R3": 0,
+        "R4": 5,
+        "SCHEMA": 1
+      }
+    }
+  }
+}
