@@ -1,0 +1,27 @@
+{
+ "B unsupported": {
+  "checkable": 34,
+  "count": 0,
+  "upper_97_5": 0.1028
+ },
+ "claude-haiku-5-5 B contradicted": {
+  "checkable": 5,
+  "count": 0,
+  "upper_97_5": 0.5218
+ },
+ "claude-haiku-5-5 B unsupported": {
+  "checkable": 5,
+  "count": 0,
+  "upper_97_5": 0.5218
+ },
+ "claude-haiku-5-5 B unsupported_or_contradicted": {
+  "checkable": 5,
+  "count": 0,
+  "upper_97_5": 0.5218
+ },
+ "claude-sonnet-5-5 B unsupported": {
+  "checkable": 29,
+  "count": 0,
+  "upper_97_5": 0.1194
+ }
+}

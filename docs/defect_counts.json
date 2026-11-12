@@ -1,0 +1,17 @@
+{
+  "error_flags_gained": 0,
+  "error_flags_lost": 2442,
+  "items": 488766,
+  "metric_samples_recorded": 0,
+  "metric_table_headers": [
+    "timestamp cmdb_id kpi_name value"
+  ],
+  "metric_table_rows": 5496,
+  "metric_tables_read": 15,
+  "runs": 488,
+  "runs_with_metric_tables": 12,
+  "runs_with_shifted_spans": 74,
+  "spans": 224303,
+  "spans_shifted": 66871,
+  "spans_with_error_in_table": 5914
+}

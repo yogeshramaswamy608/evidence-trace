@@ -93,27 +93,7 @@
     }
   },
   "exploratory_self_report": {
-    "keys": [
-      "q015",
-      "q027",
-      "q037",
-      "q046",
-      "q051",
-      "q061",
-      "q063",
-      "q078",
-      "q097",
-      "q134",
-      "q148",
-      "q179",
-      "q198",
-      "q210",
-      "q211",
-      "q248",
-      "q288",
-      "q301",
-      "q326"
-    ],
+    "keys_withheld_until": "2026-11-24 (with the label file, after the blind re-code); public at commit 32970ae",
     "labels": {
       "partly_supported": 3,
       "unsupported": 16

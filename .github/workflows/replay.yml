@@ -1,0 +1,57 @@
+name: replay
+# P4 of the rulings of Nov 11, 2026 (deviation 4): Condition B format failures.
+# mode=count is free (token counting only); mode=replay sends the summary call of each failed run once at
+# 8,192 output tokens, only if mode=count found every run rebuilt exactly, and stops at budget_usd.
+on:
+  workflow_dispatch:
+    inputs:
+      mode: {description: "count or replay", default: "count"}
+      budget_usd: {description: "replay only: stop once spend reaches this", default: "5"}
+      count_run: {description: "replay only: id of the count workflow run whose count.jsonl gates the replay", default: ""}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      AIOPSLAB_COMMIT: 576c3f080c7ae2459a972afd4a2f8d5f01828430
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Install kind
+        run: |
+          curl -sSLo kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+          chmod +x kind && sudo mv kind /usr/local/bin/kind
+      - name: AIOpsLab at the pinned commit (its problem objects build the system prompt)
+        run: |
+          git clone --recurse-submodules https://github.com/microsoft/AIOpsLab.git aiopslab
+          cd aiopslab && git checkout "$AIOPSLAB_COMMIT" && git submodule update --init --recursive
+          pip install -e . && pip install -e ..
+          cp aiopslab/config.yml.example aiopslab/config.yml
+          sed -i "s/^k8s_host:.*/k8s_host: kind/; s/^k8s_user:.*/k8s_user: $(whoami)/" aiopslab/config.yml
+      - name: kind cluster (no application is deployed)
+        run: kind create cluster --config aiopslab/kind/kind-config-x86.yaml --wait 300s
+      - name: Failed Condition B runs from the main-run artifacts
+        run: python scripts/fetch_failed_b.py failed_runs
+      - name: Count gate for a replay
+        if: inputs.mode == 'replay'
+        run: |
+          gh run download "${{ inputs.count_run }}" -n replay-count -D gate
+          ls gate
+      - name: Run
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          cd aiopslab
+          if [ "${{ inputs.mode }}" = "replay" ]; then
+            python ../scripts/replay_b.py replay ../failed_runs ../out --budget-usd "${{ inputs.budget_usd }}" --count-file ../gate/count.jsonl
+          else
+            python ../scripts/replay_b.py count ../failed_runs ../out
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: "replay-${{ inputs.mode }}", path: out, if-no-files-found: warn}

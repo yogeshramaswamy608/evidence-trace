@@ -53,7 +53,7 @@ def rq1(rows: list[dict], group=None) -> dict:
     return out
 
 
-def main(path: str = "data/labels/human_labels.jsonl", texts: str | None = None) -> int:
+def main(path: str = "data/labels/human_labels.jsonl", texts: str | None = None, keys_out: str | None = None) -> int:
     rows = load(path)
     extra = {}
     if texts:  # claim texts by key, for the exploratory self-report split
@@ -61,7 +61,10 @@ def main(path: str = "data/labels/human_labels.jsonl", texts: str | None = None)
             text = {x["key"]: x["text"] for x in json.load(fh)["queue"]}
         self_rep = [r for r in rows if not r["is_gold"] and SELF_REPORT.search(text[r["key"]])]
         keep = [r for r in rows if r not in self_rep]
-        extra = {"exploratory_self_report": {"n": len(self_rep), "keys": [r["key"] for r in self_rep],
+        if keys_out:  # the key list stays private until the label file is published (P5 b, Nov 12, 2026)
+            with open(keys_out, "w", encoding="utf-8") as fh:
+                json.dump([r["key"] for r in self_rep], fh)
+        extra = {"exploratory_self_report": {"n": len(self_rep),
                                              "labels": dict(sorted(Counter(r["label"] for r in self_rep).items()))},
                  "exploratory_rq1_without_self_report_by_condition": rq1(keep, lambda r: r["condition"])}
     assert len(rows) == 330 and sum(r["is_gold"] for r in rows) == 30, "expected 300 sampled and 30 check claims"

@@ -1,0 +1,21 @@
+{
+ "v1": {
+  "T3 unsupported": 466,
+  "T4 unsupported": 466,
+  "T5 partly_supported": 54,
+  "T6 supported": 54,
+  "T7 supported": 54,
+  "T8 unsupported": 466,
+  "run skipped ValueError": 22
+ },
+ "v2": {
+  "T3 unsupported": 488,
+  "T4 unsupported": 488,
+  "T7 supported": 76,
+  "T8 unsupported": 488,
+  "V1 supported": 76,
+  "V2 contradicted": 76,
+  "V3 supported": 70,
+  "V4 contradicted": 76
+ }
+}
