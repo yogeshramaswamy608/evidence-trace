@@ -1,0 +1,170 @@
+{
+ "data/rq2/judge/checks_v1_judge.jsonl": {
+  "agree": 1471,
+  "by_template": {
+   "T3": "466 of 466",
+   "T4": "466 of 466",
+   "T5": "3 of 54",
+   "T6": "35 of 54",
+   "T7": "35 of 54",
+   "T8": "466 of 466"
+  },
+  "claims": 1560,
+  "confusion": {
+   "partly_supported -> none": 13,
+   "partly_supported -> partly_supported": 3,
+   "partly_supported -> unsupported": 38,
+   "supported -> contradicted": 3,
+   "supported -> partly_supported": 3,
+   "supported -> supported": 70,
+   "supported -> unsupported": 32,
+   "unsupported -> unsupported": 1398
+  },
+  "f1": {
+   "ci95": [
+    0.9671,
+    0.9817
+   ],
+   "value": 0.9746
+  },
+  "precision": {
+   "ci95": [
+    0.9364,
+    0.9641
+   ],
+   "value": 0.9504
+  },
+  "recall": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "value": 1.0
+  },
+  "verifier_null": 13
+ },
+ "data/rq2/judge/checks_v2_judge.jsonl": {
+  "agree": 1785,
+  "by_template": {
+   "T3": "488 of 488",
+   "T4": "488 of 488",
+   "T7": "65 of 76",
+   "T8": "488 of 488",
+   "V1": "66 of 76",
+   "V2": "52 of 76",
+   "V3": "69 of 70",
+   "V4": "69 of 76"
+  },
+  "claims": 1838,
+  "confusion": {
+   "contradicted -> contradicted": 121,
+   "contradicted -> unsupported": 31,
+   "supported -> supported": 200,
+   "supported -> unsupported": 22,
+   "unsupported -> unsupported": 1464
+  },
+  "f1": {
+   "ci95": [
+    0.9896,
+    0.9966
+   ],
+   "value": 0.9932
+  },
+  "precision": {
+   "ci95": [
+    0.9794,
+    0.9932
+   ],
+   "value": 0.9866
+  },
+  "recall": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "value": 1.0
+  },
+  "verifier_null": 0
+ },
+ "data/rq2/out/checks_v1_stage2.jsonl": {
+  "agree": 1547,
+  "by_template": {
+   "T3": "466 of 466",
+   "T4": "466 of 466",
+   "T5": "41 of 54",
+   "T6": "54 of 54",
+   "T7": "54 of 54",
+   "T8": "466 of 466"
+  },
+  "claims": 1560,
+  "confusion": {
+   "partly_supported -> none": 13,
+   "partly_supported -> partly_supported": 41,
+   "supported -> supported": 108,
+   "unsupported -> unsupported": 1398
+  },
+  "f1": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "value": 1.0
+  },
+  "precision": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "value": 1.0
+  },
+  "recall": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "value": 1.0
+  },
+  "verifier_null": 13
+ },
+ "data/rq2/out/checks_v2_stage2.jsonl": {
+  "agree": 1686,
+  "by_template": {
+   "T3": "488 of 488",
+   "T4": "488 of 488",
+   "T7": "76 of 76",
+   "T8": "488 of 488",
+   "V1": "76 of 76",
+   "V2": "0 of 76",
+   "V3": "70 of 70",
+   "V4": "0 of 76"
+  },
+  "claims": 1838,
+  "confusion": {
+   "contradicted -> supported": 152,
+   "supported -> supported": 222,
+   "unsupported -> unsupported": 1464
+  },
+  "f1": {
+   "ci95": [
+    0.9415,
+    0.96
+   ],
+   "value": 0.9506
+  },
+  "precision": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "value": 1.0
+  },
+  "recall": {
+   "ci95": [
+    0.8894,
+    0.9231
+   ],
+   "value": 0.9059
+  },
+  "verifier_null": 0
+ }
+}

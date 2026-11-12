@@ -1,0 +1,508 @@
+{
+ "data/rq2/judge/bundle_corrected_judge.jsonl": {
+  "A_recovered_links": {
+   "claims": 173,
+   "confusion": {
+    "contradicted -> contradicted": 1,
+    "contradicted -> partly_supported": 2,
+    "contradicted -> supported": 2,
+    "contradicted -> unsupported": 4,
+    "partly_supported -> contradicted": 1,
+    "partly_supported -> partly_supported": 11,
+    "partly_supported -> supported": 2,
+    "partly_supported -> unsupported": 19,
+    "supported -> contradicted": 5,
+    "supported -> partly_supported": 18,
+    "supported -> supported": 22,
+    "supported -> unsupported": 74,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> unsupported": 11
+   },
+   "f1": {
+    "ci95": [
+     0.1471,
+     0.3279
+    ],
+    "value": 0.2353
+   },
+   "kappa": 0.0932,
+   "macro_f1": 0.2376,
+   "positives": 21,
+   "precision": {
+    "ci95": [
+     0.0833,
+     0.2041
+    ],
+    "value": 0.1391
+   },
+   "recall": {
+    "ci95": [
+     0.5714,
+     0.9375
+    ],
+    "value": 0.7619
+   },
+   "verifier_null": 0
+  },
+  "B_agent_links": {
+   "claims": 26,
+   "confusion": {
+    "contradicted -> partly_supported": 1,
+    "contradicted -> unsupported": 1,
+    "partly_supported -> partly_supported": 5,
+    "partly_supported -> unsupported": 5,
+    "supported -> partly_supported": 7,
+    "supported -> unsupported": 7
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.4
+    ],
+    "value": 0.1333
+   },
+   "kappa": 0.0,
+   "macro_f1": 0.1087,
+   "positives": 2,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.2727
+    ],
+    "value": 0.0769
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "value": 0.5
+   },
+   "verifier_null": 0
+  },
+  "all": {
+   "claims": 199,
+   "confusion": {
+    "contradicted -> contradicted": 1,
+    "contradicted -> partly_supported": 3,
+    "contradicted -> supported": 2,
+    "contradicted -> unsupported": 5,
+    "partly_supported -> contradicted": 1,
+    "partly_supported -> partly_supported": 16,
+    "partly_supported -> supported": 2,
+    "partly_supported -> unsupported": 24,
+    "supported -> contradicted": 5,
+    "supported -> partly_supported": 25,
+    "supported -> supported": 22,
+    "supported -> unsupported": 81,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> unsupported": 11
+   },
+   "f1": {
+    "ci95": [
+     0.1389,
+     0.3087
+    ],
+    "value": 0.2252
+   },
+   "kappa": 0.0927,
+   "macro_f1": 0.2292,
+   "positives": 23,
+   "precision": {
+    "ci95": [
+     0.0781,
+     0.1908
+    ],
+    "value": 0.1328
+   },
+   "recall": {
+    "ci95": [
+     0.55,
+     0.9091
+    ],
+    "value": 0.7391
+   },
+   "verifier_null": 0
+  },
+  "exploratory_without_self_reports": {
+   "claims": 186,
+   "confusion": {
+    "contradicted -> contradicted": 1,
+    "contradicted -> partly_supported": 3,
+    "contradicted -> supported": 2,
+    "contradicted -> unsupported": 5,
+    "partly_supported -> contradicted": 1,
+    "partly_supported -> partly_supported": 15,
+    "partly_supported -> supported": 2,
+    "partly_supported -> unsupported": 22,
+    "supported -> contradicted": 5,
+    "supported -> partly_supported": 25,
+    "supported -> supported": 22,
+    "supported -> unsupported": 81,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> unsupported": 1
+   },
+   "f1": {
+    "ci95": [
+     0.0451,
+     0.1875
+    ],
+    "value": 0.1085
+   },
+   "kappa": 0.0599,
+   "macro_f1": 0.1908,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.0246,
+     0.1074
+    ],
+    "value": 0.0603
+   },
+   "recall": {
+    "ci95": [
+     0.2667,
+     0.8182
+    ],
+    "value": 0.5385
+   },
+   "verifier_null": 0
+  }
+ },
+ "data/rq2/judge/bundle_registered_judge.jsonl": {
+  "A_recovered_links": {
+   "claims": 173,
+   "confusion": {
+    "contradicted -> contradicted": 1,
+    "contradicted -> none": 3,
+    "contradicted -> partly_supported": 1,
+    "contradicted -> supported": 1,
+    "contradicted -> unsupported": 3,
+    "partly_supported -> none": 12,
+    "partly_supported -> partly_supported": 9,
+    "partly_supported -> supported": 1,
+    "partly_supported -> unsupported": 11,
+    "supported -> none": 35,
+    "supported -> partly_supported": 12,
+    "supported -> supported": 19,
+    "supported -> unsupported": 53,
+    "unsupported -> none": 4,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> unsupported": 7
+   },
+   "f1": {
+    "ci95": [
+     0.122,
+     0.3333
+    ],
+    "value": 0.2292
+   },
+   "kappa": 0.0804,
+   "macro_f1": 0.2389,
+   "positives": 21,
+   "precision": {
+    "ci95": [
+     0.0746,
+     0.2295
+    ],
+    "value": 0.1467
+   },
+   "recall": {
+    "ci95": [
+     0.3043,
+     0.7368
+    ],
+    "value": 0.5238
+   },
+   "verifier_null": 54
+  },
+  "B_agent_links": {
+   "claims": 26,
+   "confusion": {
+    "contradicted -> partly_supported": 1,
+    "contradicted -> unsupported": 1,
+    "partly_supported -> none": 1,
+    "partly_supported -> partly_supported": 6,
+    "partly_supported -> unsupported": 3,
+    "supported -> none": 5,
+    "supported -> partly_supported": 4,
+    "supported -> unsupported": 5
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.5
+    ],
+    "value": 0.1818
+   },
+   "kappa": 0.0813,
+   "macro_f1": 0.1429,
+   "positives": 2,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.375
+    ],
+    "value": 0.1111
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "value": 0.5
+   },
+   "verifier_null": 6
+  },
+  "all": {
+   "claims": 199,
+   "confusion": {
+    "contradicted -> contradicted": 1,
+    "contradicted -> none": 3,
+    "contradicted -> partly_supported": 2,
+    "contradicted -> supported": 1,
+    "contradicted -> unsupported": 4,
+    "partly_supported -> none": 13,
+    "partly_supported -> partly_supported": 15,
+    "partly_supported -> supported": 1,
+    "partly_supported -> unsupported": 14,
+    "supported -> none": 40,
+    "supported -> partly_supported": 16,
+    "supported -> supported": 19,
+    "supported -> unsupported": 58,
+    "unsupported -> none": 4,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> unsupported": 7
+   },
+   "f1": {
+    "ci95": [
+     0.1224,
+     0.3252
+    ],
+    "value": 0.2243
+   },
+   "kappa": 0.0902,
+   "macro_f1": 0.2376,
+   "positives": 23,
+   "precision": {
+    "ci95": [
+     0.0732,
+     0.2178
+    ],
+    "value": 0.1429
+   },
+   "recall": {
+    "ci95": [
+     0.3077,
+     0.7368
+    ],
+    "value": 0.5217
+   },
+   "verifier_null": 60
+  },
+  "exploratory_without_self_reports": {
+   "claims": 186,
+   "confusion": {
+    "contradicted -> contradicted": 1,
+    "contradicted -> none": 3,
+    "contradicted -> partly_supported": 2,
+    "contradicted -> supported": 1,
+    "contradicted -> unsupported": 4,
+    "partly_supported -> none": 13,
+    "partly_supported -> partly_supported": 14,
+    "partly_supported -> supported": 1,
+    "partly_supported -> unsupported": 12,
+    "supported -> none": 40,
+    "supported -> partly_supported": 16,
+    "supported -> supported": 19,
+    "supported -> unsupported": 58,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> unsupported": 1
+   },
+   "f1": {
+    "ci95": [
+     0.046,
+     0.2316
+    ],
+    "value": 0.1348
+   },
+   "kappa": 0.0737,
+   "macro_f1": 0.2057,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.0256,
+     0.1429
+    ],
+    "value": 0.0789
+   },
+   "recall": {
+    "ci95": [
+     0.2,
+     0.75
+    ],
+    "value": 0.4615
+   },
+   "verifier_null": 56
+  }
+ },
+ "data/rq2/out/bundle_corrected_stage2.jsonl": {
+  "A_recovered_links": {
+   "claims": 173,
+   "confusion": {
+    "contradicted -> supported": 9,
+    "partly_supported -> partly_supported": 3,
+    "partly_supported -> supported": 30,
+    "supported -> partly_supported": 13,
+    "supported -> supported": 106,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> supported": 11
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "kappa": -0.0248,
+   "macro_f1": 0.2227,
+   "positives": 21,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "verifier_null": 0
+  },
+  "B_agent_links": {
+   "claims": 26,
+   "confusion": {
+    "contradicted -> partly_supported": 1,
+    "contradicted -> unsupported": 1,
+    "partly_supported -> partly_supported": 6,
+    "partly_supported -> supported": 1,
+    "partly_supported -> unsupported": 3,
+    "supported -> partly_supported": 9,
+    "supported -> supported": 3,
+    "supported -> unsupported": 2
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.6667
+    ],
+    "value": 0.25
+   },
+   "kappa": 0.0391,
+   "macro_f1": 0.1987,
+   "positives": 2,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.6667
+    ],
+    "value": 0.1667
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "value": 0.5
+   },
+   "verifier_null": 0
+  },
+  "all": {
+   "claims": 199,
+   "confusion": {
+    "contradicted -> partly_supported": 1,
+    "contradicted -> supported": 9,
+    "contradicted -> unsupported": 1,
+    "partly_supported -> partly_supported": 9,
+    "partly_supported -> supported": 31,
+    "partly_supported -> unsupported": 3,
+    "supported -> partly_supported": 22,
+    "supported -> supported": 109,
+    "supported -> unsupported": 2,
+    "unsupported -> partly_supported": 1,
+    "unsupported -> supported": 11
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.2143
+    ],
+    "value": 0.069
+   },
+   "kappa": 0.0422,
+   "macro_f1": 0.2452,
+   "positives": 23,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.6667
+    ],
+    "value": 0.1667
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     0.1429
+    ],
+    "value": 0.0435
+   },
+   "verifier_null": 0
+  },
+  "exploratory_without_self_reports": {
+   "claims": 186,
+   "confusion": {
+    "contradicted -> partly_supported": 1,
+    "contradicted -> supported": 9,
+    "contradicted -> unsupported": 1,
+    "partly_supported -> partly_supported": 8,
+    "partly_supported -> supported": 31,
+    "partly_supported -> unsupported": 1,
+    "supported -> partly_supported": 22,
+    "supported -> supported": 109,
+    "supported -> unsupported": 2,
+    "unsupported -> supported": 2
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.3529
+    ],
+    "value": 0.1176
+   },
+   "kappa": 0.0325,
+   "macro_f1": 0.2482,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "value": 0.25
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     0.25
+    ],
+    "value": 0.0769
+   },
+   "verifier_null": 0
+  }
+ },
+ "split": "test"
+}
