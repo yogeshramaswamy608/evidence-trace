@@ -15,7 +15,9 @@ def main(out: str) -> int:
     failed = [r for r in rows if r["condition"] == "B" and r["reached"] and not r.get("b_parsed")]
     repo = os.environ["GITHUB_REPOSITORY"]
     for aid in sorted({r["artifact"] for r in failed}):
-        raw = subprocess.run(["gh", "api", f"repos/{repo}/actions/artifacts/{aid}/zip"], check=True, capture_output=True).stdout
+        raw = subprocess.run(["curl", "-sSfL", "-H", f"Authorization: Bearer {os.environ['GH_TOKEN']}",
+                              f"https://api.github.com/repos/{repo}/actions/artifacts/{aid}/zip"],
+                             check=True, capture_output=True).stdout
         z = zipfile.ZipFile(io.BytesIO(raw))
         for r in failed:
             if r["artifact"] != aid:
