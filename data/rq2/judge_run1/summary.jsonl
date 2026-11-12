@@ -1,0 +1,4 @@
+{"input": "data/rq2/bundle_corrected.jsonl", "judge": "claude-opus-5-5", "verifier_errors": 0, "not_run_budget": 0, "usage": {"calls": 306, "input_tokens": 146824, "output_tokens": 4824}, "cost_usd": 0.6838}
+{"input": "data/rq2/bundle_registered.jsonl", "judge": "claude-opus-5-5", "verifier_errors": 6, "not_run_budget": 0, "usage": {"calls": 300, "input_tokens": 144614, "output_tokens": 4764}, "cost_usd": 0.6737}
+{"input": "data/rq2/checks_v2.jsonl", "judge": "claude-opus-5-5", "verifier_errors": 0, "not_run_budget": 0, "usage": {"calls": 374, "input_tokens": 109722, "output_tokens": 5586}, "cost_usd": 0.5506}
+{"input": "data/rq2/checks_v1.jsonl", "judge": "claude-opus-5-5", "verifier_errors": 13, "not_run_budget": 0, "usage": {"calls": 149, "input_tokens": 42760, "output_tokens": 2312}, "cost_usd": 0.2173}

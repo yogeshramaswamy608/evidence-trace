@@ -25,8 +25,10 @@ def main() -> int:
     ap.add_argument("out")
     ap.add_argument("--log")
     ap.add_argument("--budget-usd", type=float, default=0.0)
+    ap.add_argument("--judge-max-tokens", type=int, default=16,
+                    help="16 is the registered value; deviation 6 (Nov 12, 2026) raises it so the judge's thinking fits")
     a = ap.parse_args()
-    judge = verify.stage2_judge if a.judge == "stage2" else verify.ModelJudge(a.judge, log_path=a.log)
+    judge = verify.stage2_judge if a.judge == "stage2" else verify.ModelJudge(a.judge, log_path=a.log, max_tokens=a.judge_max_tokens)
     errors = stopped = 0
     with open(a.inp, encoding="utf-8") as fh, open(a.out, "w", encoding="utf-8") as out:
         for line in fh:
@@ -50,7 +52,12 @@ def main() -> int:
                 res.update({"verifier_label": None, "reasons": ["VERIFIER_ERROR", str(e)[:120]]})
             out.write(json.dumps(res, sort_keys=True) + "\n")
     usage = getattr(judge, "usage", {})
-    print(json.dumps({"input": a.inp, "judge": a.judge, "verifier_errors": errors, "not_run_budget": stopped, "usage": usage,
+    no_text = 0
+    if a.log:
+        for line in open(a.log, encoding="utf-8"):
+            resp = json.loads(line)["response"]
+            no_text += not any(b.get("type") == "text" and b.get("text", "").strip() for b in resp.get("content", []))
+    print(json.dumps({"input": a.inp, "judge": a.judge, "verifier_errors": errors, "not_run_budget": stopped, "judge_replies_without_text": no_text, "usage": usage,
                       "cost_usd": round((usage.get("input_tokens", 0) * PRICE_IN + usage.get("output_tokens", 0) * PRICE_OUT) / 1e6, 4)}))
     return 0
 

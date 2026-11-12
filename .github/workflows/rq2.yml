@@ -6,7 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       judge: {description: "Stage 3 judge model (differs from both agents)", default: "claude-opus-5-5"}
-      budget_usd: {description: "stop each input once its spend reaches this", default: "2.5"}
+      budget_usd: {description: "stop each input once its spend reaches this (bundle_corrected and checks_v2)", default: "3"}
+      budget_usd_beside: {description: "the same for bundle_registered and checks_v1, run after", default: "1.2"}
+      judge_max_tokens: {description: "16 registered; deviation 6 raises it so the judge's thinking fits", default: "4096"}
 permissions:
   contents: read
 jobs:
@@ -25,9 +27,10 @@ jobs:
           mkdir -p out
           git rev-parse HEAD > out/verifier_commit.txt
           cp pip_freeze.txt out/
-          for f in bundle_corrected bundle_registered checks_v2 checks_v1; do
+          for f in bundle_corrected checks_v2 bundle_registered checks_v1; do
+            b="${{ inputs.budget_usd }}"; case $f in bundle_registered|checks_v1) b="${{ inputs.budget_usd_beside }}";; esac
             python scripts/rq2_run.py "${{ inputs.judge }}" data/rq2/$f.jsonl out/${f}_judge.jsonl \
-              --log out/${f}_judge_log.jsonl --budget-usd "${{ inputs.budget_usd }}" | tee -a out/summary.jsonl
+              --log out/${f}_judge_log.jsonl --budget-usd "$b" --judge-max-tokens "${{ inputs.judge_max_tokens }}" | tee -a out/summary.jsonl
           done
       - uses: actions/upload-artifact@v4
         if: always()

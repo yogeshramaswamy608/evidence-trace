@@ -1,0 +1,37 @@
+{
+ "claude-haiku-5-5": {
+  "failed_runs": 104,
+  "replay_claims": 864,
+  "replay_output_tokens_max": 5673,
+  "replay_output_tokens_median": 2893.0,
+  "replay_over_registered_limit": 96,
+  "replay_parsed": 99,
+  "replay_stop_reasons": {
+   "end_turn": 104
+  },
+  "replay_thinking_tokens_median": 1442.5,
+  "replay_with_thinking_block": 93,
+  "stored_empty": 16,
+  "stored_text_tokens_max": 2048,
+  "stored_text_tokens_median": 681.0
+ },
+ "claude-sonnet-5-5": {
+  "failed_runs": 11,
+  "replay_claims": 72,
+  "replay_output_tokens_max": 2483,
+  "replay_output_tokens_median": 1686,
+  "replay_over_registered_limit": 4,
+  "replay_parsed": 11,
+  "replay_stop_reasons": {
+   "end_turn": 11
+  },
+  "replay_thinking_tokens_median": 667,
+  "replay_with_thinking_block": 7,
+  "stored_empty": 0,
+  "stored_text_tokens_max": 2048,
+  "stored_text_tokens_median": 1288
+ },
+ "rebuilt_exactly": 115,
+ "replay_cost_usd": 4.3138,
+ "runs": 115
+}
