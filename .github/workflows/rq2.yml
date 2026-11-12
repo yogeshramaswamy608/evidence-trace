@@ -1,0 +1,34 @@
+name: rq2
+# Research question 2 (P1 of the rulings of Nov 11, 2026): the frozen verifier with the Stage 3 judge on the
+# 300 sampled claims (corrected and registered records, deviation 5) and on the two check sets. One run.
+# Every judge request and response is logged and uploaded. Stops at budget_usd per input file.
+on:
+  workflow_dispatch:
+    inputs:
+      judge: {description: "Stage 3 judge model (differs from both agents)", default: "claude-opus-5-5"}
+      budget_usd: {description: "stop each input once its spend reaches this", default: "2.5"}
+permissions:
+  contents: read
+jobs:
+  rq2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -e . && pip freeze > pip_freeze.txt
+      - name: Judge
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          mkdir -p out
+          git rev-parse HEAD > out/verifier_commit.txt
+          cp pip_freeze.txt out/
+          for f in bundle_corrected bundle_registered checks_v2 checks_v1; do
+            python scripts/rq2_run.py "${{ inputs.judge }}" data/rq2/$f.jsonl out/${f}_judge.jsonl \
+              --log out/${f}_judge_log.jsonl --budget-usd "${{ inputs.budget_usd }}" | tee -a out/summary.jsonl
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: rq2-judge, path: out, if-no-files-found: warn}
