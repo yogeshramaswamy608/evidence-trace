@@ -8,13 +8,14 @@ verifier could not label (null) counts as a miss of the positive class and is re
 F1 carry a 95 percent cluster bootstrap interval over runs (evtrace.stats, seed 20261105); the four-class
 confusion table, macro F1 and unweighted kappa follow. Every cell is also given for Condition A (recovered
 links) and Condition B (agent links) apart, and, exploratory, without the self-reports (P3).
-Prints JSON; nothing is printed per claim.
+Given two or more files, each later file is also compared with the first on the same claims (paired_vs_first: cluster bootstrap of the difference and exact McNemar). Prints JSON; nothing is printed per claim.
 """
 import json
 import sys
 from collections import Counter, defaultdict
 
 from evtrace import stats
+from rq2_paired import paired
 
 NORM = {"supported": "supported", "partly supported": "partly_supported", "unsupported": "unsupported",
         "contradicted": "contradicted", "not checkable": "not_checkable"}
@@ -53,6 +54,7 @@ def main(split: str, labels_path: str, *verifiers: str) -> int:
         r = json.loads(line)
         human[r["key"]] = norm(r["label"])
     result = {"split": split}
+    by_file = {}
     for path in verifiers:
         rows = []
         for line in open(path, encoding="utf-8"):
@@ -62,13 +64,24 @@ def main(split: str, labels_path: str, *verifiers: str) -> int:
             h = human[v["key"]]
             if h == "not_checkable":
                 continue
-            rows.append({"run_id": v["run_id"], "human": h, "verifier": v["verifier_label"],
+            rows.append({"key": v["key"], "run_id": v["run_id"], "human": h, "verifier": v["verifier_label"],
                          "condition": v["condition"], "self_report": v["self_report"]})
+        by_file[path] = {r["key"]: r for r in rows}
         assert len({r["run_id"] for r in rows}) and len(rows) <= len(human)
         result[path] = {"all": cell(rows),
                         "A_recovered_links": cell([r for r in rows if r["condition"] == "A"]),
                         "B_agent_links": cell([r for r in rows if r["condition"] == "B"]),
                         "exploratory_without_self_reports": cell([r for r in rows if not r["self_report"]])}
+    # Two systems scored on the same claims are compared on the pairs, never by whether their separate
+    # intervals overlap: each later file against the first (Nov 16, 2026).
+    first = verifiers[0]
+    for path in verifiers[1:]:
+        keys = sorted(set(by_file[first]) & set(by_file[path]))
+        clusters = {}
+        for k in keys:
+            a, b = by_file[first][k], by_file[path][k]
+            clusters.setdefault(a["run_id"], []).append((a["human"] in POS, b["verifier"] in POS, a["verifier"] in POS))
+        result.setdefault("paired_vs_first", {})[path] = {"first": first, **paired(clusters)}
     json.dump(result, sys.stdout, indent=1, sort_keys=True)
     print()
     return 0

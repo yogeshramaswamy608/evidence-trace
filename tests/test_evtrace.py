@@ -319,3 +319,19 @@ def test_parse_time_epoch_units():
     from evtrace.record import parse_time
     a = parse_time("1793944967277000"); b = parse_time("1793944967277"); c = parse_time("1793944967")
     assert a.year == 2026 and abs((a - b).total_seconds()) < 0.001 and abs((b - c).total_seconds()) < 1
+
+
+def test_rq2_score_compares_two_systems_on_pairs(tmp_path):
+    """Two systems scored together get a paired difference, not only two separate intervals (Nov 16, 2026)."""
+    import subprocess, sys
+    labels, a, b = tmp_path / "l.jsonl", tmp_path / "a.jsonl", tmp_path / "b.jsonl"
+    rows = [(f"q{i}", f"r{i % 5}", "unsupported" if i % 3 == 0 else "supported") for i in range(30)]
+    labels.write_text("".join(json.dumps({"key": k, "label": h}) + "\n" for k, _, h in rows))
+    for path, right in ((a, False), (b, True)):
+        path.write_text("".join(json.dumps({"key": k, "run_id": r, "split": "test", "condition": "A", "self_report": False,
+                                            "verifier_label": h if right else "supported"}) + "\n" for k, r, h in rows))
+    out = subprocess.run([sys.executable, "scripts/rq2_score.py", "test", str(labels), str(a), str(b)],
+                         capture_output=True, text=True, check=True).stdout
+    p = json.loads(out)["paired_vs_first"][str(b)]
+    assert p["claims"] == 30 and p["recall_difference"]["value"] == 1.0
+    assert p["mcnemar"]["second_right_first_wrong"] == 10 and p["mcnemar"]["first_right_second_wrong"] == 0

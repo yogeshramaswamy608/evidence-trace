@@ -22,6 +22,21 @@ def norm(x):
     return NORM.get(x, x)
 
 
+def paired(rows_by_run: dict[str, list]) -> dict:
+    """rows_by_run: run id -> list of (author positive, system B positive, system A positive). Returns B minus A."""
+    rows = [x for c in rows_by_run.values() for x in c]
+    out = {"claims": len(rows), "runs": len(rows_by_run), "positives": sum(t for t, _, _ in rows)}
+    for i, name in enumerate(("precision", "recall", "f1")):
+        d, lo, hi = stats.cluster_bootstrap(rows_by_run, lambda xs, i=i: stats.prf([t for t, _, _ in xs], [p for _, p, _ in xs])[i]
+                                            - stats.prf([t for t, _, _ in xs], [q for _, _, q in xs])[i])
+        out[f"{name}_difference"] = {"value": round(d, 4), "ci95": [round(lo, 4), round(hi, 4)], "excludes_0": lo > 0 or hi < 0}
+    only_b = sum((p == t) and (q != t) for t, p, q in rows)
+    only_a = sum((q == t) and (p != t) for t, p, q in rows)
+    out["mcnemar"] = {"second_right_first_wrong": only_b, "first_right_second_wrong": only_a,
+                      "p_exact": round(stats.mcnemar_exact(only_b, only_a), 6)}
+    return out
+
+
 def main(split: str, labels: str, verifier: str, baseline: str) -> int:
     human = {json.loads(l)["key"]: norm(json.loads(l)["label"]) for l in open(labels, encoding="utf-8")}
     v = {r["key"]: r for r in map(json.loads, open(verifier, encoding="utf-8")) if r.get("split") == split}
@@ -32,16 +47,7 @@ def main(split: str, labels: str, verifier: str, baseline: str) -> int:
         if human[k] == "not_checkable":
             continue
         clusters.setdefault(v[k]["run_id"], []).append((human[k] in POS, b[k]["verifier_label"] in POS, v[k]["verifier_label"] in POS))
-    rows = [x for c in clusters.values() for x in c]
-    out = {"split": split, "claims": len(rows), "runs": len(clusters), "positives": sum(t for t, _, _ in rows)}
-    for i, name in enumerate(("precision", "recall", "f1")):
-        d, lo, hi = stats.cluster_bootstrap(clusters, lambda xs, i=i: stats.prf([t for t, _, _ in xs], [p for _, p, _ in xs])[i]
-                                            - stats.prf([t for t, _, _ in xs], [q for _, _, q in xs])[i])
-        out[f"{name}_baseline_minus_verifier"] = {"value": round(d, 4), "ci95": [round(lo, 4), round(hi, 4)], "excludes_0": lo > 0 or hi < 0}
-    only_b = sum((p == t) and (q != t) for t, p, q in rows)
-    only_v = sum((q == t) and (p != t) for t, p, q in rows)
-    out["mcnemar"] = {"baseline_right_verifier_wrong": only_b, "verifier_right_baseline_wrong": only_v,
-                      "p_exact": round(stats.mcnemar_exact(only_b, only_v), 4)}
+    out = {"split": split, "first": verifier, "second": baseline, **paired(clusters)}
     json.dump(out, sys.stdout, indent=1, sort_keys=True)
     print()
     return 0
