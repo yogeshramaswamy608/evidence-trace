@@ -1,0 +1,37 @@
+name: rq2-baseline
+# The link-blind baseline of research question 2 (deviation 3; play 3b of the plan of Nov 11, 2026): the frozen
+# Stage 3 judge reads each of the 300 sampled claims with the capped pool of 50 exposed items and no links.
+# Corrected records first, registered records beside (deviation 5). One run. Every request and response is
+# logged and uploaded. Stops at budget_usd per input file.
+on:
+  workflow_dispatch:
+    inputs:
+      judge: {description: "Stage 3 judge model (differs from both agents)", default: "claude-opus-5-5"}
+      budget_usd: {description: "stop each input once its spend reaches this", default: "10"}
+      judge_max_tokens: {description: "as in the judge run of deviation 6", default: "4096"}
+permissions:
+  contents: read
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -e . && pip freeze > pip_freeze.txt
+      - name: Baseline
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          mkdir -p out
+          git rev-parse HEAD > out/verifier_commit.txt
+          cp pip_freeze.txt out/
+          for f in bundle_corrected bundle_registered; do
+            python scripts/rq2_baseline.py "${{ inputs.judge }}" data/rq2/$f.jsonl out/${f}_baseline.jsonl \
+              --log out/${f}_baseline_log.jsonl --budget-usd "${{ inputs.budget_usd }}" \
+              --judge-max-tokens "${{ inputs.judge_max_tokens }}" | tee -a out/summary.jsonl
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: rq2-baseline, path: out, if-no-files-found: warn}
