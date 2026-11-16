@@ -1,0 +1,2 @@
+{"input": "data/rq2/bundle_corrected.jsonl", "judge": "claude-opus-5-5", "baseline": "link-blind, pool 50", "judge_errors": 0, "not_checkable": 0, "not_run_budget": 0, "usage": {"calls": 300, "input_tokens": 1584505, "output_tokens": 60920}, "cost_usd": 7.5564}
+{"input": "data/rq2/bundle_registered.jsonl", "judge": "claude-opus-5-5", "baseline": "link-blind, pool 50", "judge_errors": 0, "not_checkable": 0, "not_run_budget": 0, "usage": {"calls": 300, "input_tokens": 1581737, "output_tokens": 62264}, "cost_usd": 7.5722}
