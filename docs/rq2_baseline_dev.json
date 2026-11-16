@@ -1,0 +1,321 @@
+{
+ "data/rq2/baseline/bundle_corrected_baseline.jsonl": {
+  "A_recovered_links": {
+   "claims": 88,
+   "confusion": {
+    "contradicted -> contradicted": 2,
+    "contradicted -> supported": 1,
+    "partly_supported -> partly_supported": 4,
+    "partly_supported -> supported": 2,
+    "partly_supported -> unsupported": 7,
+    "supported -> contradicted": 2,
+    "supported -> partly_supported": 2,
+    "supported -> supported": 31,
+    "supported -> unsupported": 27,
+    "unsupported -> contradicted": 1,
+    "unsupported -> unsupported": 9
+   },
+   "f1": {
+    "ci95": [
+     0.2319,
+     0.5333
+    ],
+    "value": 0.3934
+   },
+   "kappa": 0.2771,
+   "macro_f1": 0.4766,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.1333,
+     0.3725
+    ],
+    "value": 0.25
+   },
+   "recall": {
+    "ci95": [
+     0.75,
+     1.0
+    ],
+    "value": 0.9231
+   },
+   "verifier_null": 0
+  },
+  "B_agent_links": {
+   "claims": 8,
+   "confusion": {
+    "partly_supported -> partly_supported": 2,
+    "partly_supported -> unsupported": 1,
+    "supported -> supported": 3,
+    "supported -> unsupported": 2
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "kappa": 0.4419,
+   "macro_f1": 0.3875,
+   "positives": 0,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "verifier_null": 0
+  },
+  "all": {
+   "claims": 96,
+   "confusion": {
+    "contradicted -> contradicted": 2,
+    "contradicted -> supported": 1,
+    "partly_supported -> partly_supported": 6,
+    "partly_supported -> supported": 2,
+    "partly_supported -> unsupported": 8,
+    "supported -> contradicted": 2,
+    "supported -> partly_supported": 2,
+    "supported -> supported": 34,
+    "supported -> unsupported": 29,
+    "unsupported -> contradicted": 1,
+    "unsupported -> unsupported": 9
+   },
+   "f1": {
+    "ci95": [
+     0.2182,
+     0.5122
+    ],
+    "value": 0.375
+   },
+   "kappa": 0.2957,
+   "macro_f1": 0.4938,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.125,
+     0.3488
+    ],
+    "value": 0.2353
+   },
+   "recall": {
+    "ci95": [
+     0.75,
+     1.0
+    ],
+    "value": 0.9231
+   },
+   "verifier_null": 0
+  },
+  "exploratory_without_self_reports": {
+   "claims": 90,
+   "confusion": {
+    "contradicted -> contradicted": 2,
+    "contradicted -> supported": 1,
+    "partly_supported -> partly_supported": 6,
+    "partly_supported -> supported": 2,
+    "partly_supported -> unsupported": 8,
+    "supported -> contradicted": 2,
+    "supported -> partly_supported": 2,
+    "supported -> supported": 34,
+    "supported -> unsupported": 29,
+    "unsupported -> contradicted": 1,
+    "unsupported -> unsupported": 3
+   },
+   "f1": {
+    "ci95": [
+     0.087,
+     0.3793
+    ],
+    "value": 0.2308
+   },
+   "kappa": 0.2384,
+   "macro_f1": 0.4476,
+   "positives": 7,
+   "precision": {
+    "ci95": [
+     0.0465,
+     0.2381
+    ],
+    "value": 0.1333
+   },
+   "recall": {
+    "ci95": [
+     0.5556,
+     1.0
+    ],
+    "value": 0.8571
+   },
+   "verifier_null": 0
+  }
+ },
+ "data/rq2/baseline/bundle_registered_baseline.jsonl": {
+  "A_recovered_links": {
+   "claims": 88,
+   "confusion": {
+    "contradicted -> contradicted": 2,
+    "contradicted -> supported": 1,
+    "partly_supported -> partly_supported": 4,
+    "partly_supported -> supported": 3,
+    "partly_supported -> unsupported": 6,
+    "supported -> contradicted": 4,
+    "supported -> partly_supported": 3,
+    "supported -> supported": 29,
+    "supported -> unsupported": 26,
+    "unsupported -> contradicted": 1,
+    "unsupported -> unsupported": 9
+   },
+   "f1": {
+    "ci95": [
+     0.2333,
+     0.5333
+    ],
+    "value": 0.3934
+   },
+   "kappa": 0.2519,
+   "macro_f1": 0.4409,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.1364,
+     0.3721
+    ],
+    "value": 0.25
+   },
+   "recall": {
+    "ci95": [
+     0.75,
+     1.0
+    ],
+    "value": 0.9231
+   },
+   "verifier_null": 0
+  },
+  "B_agent_links": {
+   "claims": 8,
+   "confusion": {
+    "partly_supported -> partly_supported": 1,
+    "partly_supported -> unsupported": 2,
+    "supported -> supported": 1,
+    "supported -> unsupported": 4
+   },
+   "f1": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "kappa": 0.1429,
+   "macro_f1": 0.2083,
+   "positives": 0,
+   "precision": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "recall": {
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "value": 0.0
+   },
+   "verifier_null": 0
+  },
+  "all": {
+   "claims": 96,
+   "confusion": {
+    "contradicted -> contradicted": 2,
+    "contradicted -> supported": 1,
+    "partly_supported -> partly_supported": 5,
+    "partly_supported -> supported": 3,
+    "partly_supported -> unsupported": 8,
+    "supported -> contradicted": 4,
+    "supported -> partly_supported": 3,
+    "supported -> supported": 30,
+    "supported -> unsupported": 30,
+    "unsupported -> contradicted": 1,
+    "unsupported -> unsupported": 9
+   },
+   "f1": {
+    "ci95": [
+     0.209,
+     0.4938
+    ],
+    "value": 0.3582
+   },
+   "kappa": 0.2404,
+   "macro_f1": 0.4316,
+   "positives": 13,
+   "precision": {
+    "ci95": [
+     0.1176,
+     0.339
+    ],
+    "value": 0.2222
+   },
+   "recall": {
+    "ci95": [
+     0.75,
+     1.0
+    ],
+    "value": 0.9231
+   },
+   "verifier_null": 0
+  },
+  "exploratory_without_self_reports": {
+   "claims": 90,
+   "confusion": {
+    "contradicted -> contradicted": 2,
+    "contradicted -> supported": 1,
+    "partly_supported -> partly_supported": 5,
+    "partly_supported -> supported": 3,
+    "partly_supported -> unsupported": 8,
+    "supported -> contradicted": 4,
+    "supported -> partly_supported": 3,
+    "supported -> supported": 30,
+    "supported -> unsupported": 30,
+    "unsupported -> contradicted": 1,
+    "unsupported -> unsupported": 3
+   },
+   "f1": {
+    "ci95": [
+     0.0816,
+     0.36
+    ],
+    "value": 0.2182
+   },
+   "kappa": 0.1832,
+   "macro_f1": 0.386,
+   "positives": 7,
+   "precision": {
+    "ci95": [
+     0.0426,
+     0.2245
+    ],
+    "value": 0.125
+   },
+   "recall": {
+    "ci95": [
+     0.5556,
+     1.0
+    ],
+    "value": 0.8571
+   },
+   "verifier_null": 0
+  }
+ },
+ "split": "dev"
+}
