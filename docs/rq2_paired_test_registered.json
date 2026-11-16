@@ -1,0 +1,35 @@
+{
+ "claims": 199,
+ "f1_baseline_minus_verifier": {
+  "ci95": [
+   -0.0426,
+   0.1532
+  ],
+  "excludes_0": false,
+  "value": 0.0567
+ },
+ "mcnemar": {
+  "baseline_right_verifier_wrong": 35,
+  "p_exact": 0.7275,
+  "verifier_right_baseline_wrong": 39
+ },
+ "positives": 23,
+ "precision_baseline_minus_verifier": {
+  "ci95": [
+   -0.0318,
+   0.0925
+  ],
+  "excludes_0": false,
+  "value": 0.0306
+ },
+ "recall_baseline_minus_verifier": {
+  "ci95": [
+   -0.0455,
+   0.4615
+  ],
+  "excludes_0": false,
+  "value": 0.2174
+ },
+ "runs": 150,
+ "split": "test"
+}
